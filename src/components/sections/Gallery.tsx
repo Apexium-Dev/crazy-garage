@@ -8,22 +8,22 @@ const galleryItems = [
   {
     id: 1,
     title: 'Left Side Door',
-    beforeImage: '/crazy-garage/gallery/left-side-door-before.JPG',
-    afterImage: '/crazy-garage/gallery/left-side-door-after.JPG',
+    beforeImage: 'gallery/left-side-door-before.JPG',
+    afterImage: 'gallery/left-side-door-after.JPG',
     description: 'Complete door panel restoration and detailing'
   },
   {
     id: 2,
     title: 'Interior Right Side',
-    beforeImage: '/crazy-garage/gallery/inside-from-right-before-2.JPG',
-    afterImage: '/crazy-garage/gallery/from-right-side-after.JPG',
+    beforeImage: 'gallery/inside-from-right-before-2.JPG',
+    afterImage: 'gallery/from-right-side-after.JPG',
     description: 'Full interior restoration and cleaning'
   },
   {
     id: 3,
     title: 'Complete Transformation',
-    beforeImage: '/crazy-garage/gallery/before.jpeg',
-    afterImage: '/crazy-garage/gallery/after.jpeg',
+    beforeImage: 'gallery/before.jpeg',
+    afterImage: 'gallery/after.jpeg',
     description: 'Full vehicle detailing and restoration'
   }
 ]

@@ -3,13 +3,18 @@ const nextConfig = {
   output: 'export',  // Enable static exports
   images: {
     unoptimized: true, // Required for static export
-    path: '/crazy-garage/_next/image'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   basePath: '/crazy-garage', // Replace with your repository name
+  assetPrefix: '/crazy-garage', // Add asset prefix for static files
   eslint: {
     ignoreDuringBuilds: true, // Disable ESLint during builds
   },
-  assetPrefix: '/crazy-garage', // Add asset prefix for static files
 }
 
 module.exports = nextConfig 
