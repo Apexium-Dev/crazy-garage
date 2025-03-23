@@ -111,7 +111,7 @@ const services = [
   {
     icon: FaCarSide,
     title: 'Angel Eyes Mount',
-    description: 'Upgrade your vehicle\'s appearance with our premium angel eyes installation.',
+    description: 'Upgrade your vehicle&apos;s appearance with our premium angel eyes installation.',
     features: [
       'Expert installation',
       'Premium LED systems',
@@ -135,7 +135,7 @@ const services = [
   {
     icon: FaShieldAlt,
     title: 'Paint Protection Film',
-    description: 'Protect your vehicle\'s paint from scratches, chips, and environmental damage with premium PPF.',
+    description: 'Protect your vehicle&apos;s paint from scratches, chips, and environmental damage with premium PPF.',
     features: [
       'Self-healing technology',
       'UV protection',

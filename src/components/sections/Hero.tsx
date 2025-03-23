@@ -44,7 +44,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="gradient-text leading-tight"
             >
-              Transform your car's look with our professional detailing services
+              Transform your car&apos;s look with our professional detailing services
             </motion.h1>
 
             <motion.p 
@@ -54,7 +54,7 @@ export default function Hero() {
               className="text-lg md:text-xl text-[var(--text-muted)] max-w-2xl"
             >
               Experience premium car detailing and headlight restoration services that
-              will transform your vehicle's appearance
+              will transform your vehicle&apos;s appearance
             </motion.p>
 
             <motion.div 

@@ -17,7 +17,7 @@ export default function GalleryPage() {
             Gallery Coming Soon
           </h1>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-8">
-            We're working on curating our best transformations. Check back soon to see our complete portfolio of professional detailing work.
+            We&apos;re working on curating our best transformations. Check back soon to see our complete portfolio of professional detailing work.
           </p>
           <Link 
             href="/"
