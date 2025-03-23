@@ -19,7 +19,7 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero.webp"
+          src="/crazy-garage/images/hero.webp"
           alt="Professional Car Detailing"
           fill
           className="object-cover"
@@ -94,7 +94,7 @@ export default function Hero() {
           className="block w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:bg-[#20BD5C] transition-all duration-300 hover:scale-110"
         >
           <Image
-            src="/images/whatsapp.svg"
+            src="/crazy-garage/images/whatsapp.svg"
             alt="WhatsApp"
             width={32}
             height={32}
