@@ -1,78 +1,94 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import Link from 'next/link'
+import GalleryItem from './GalleryItem'
 
-const transformations = [
+const galleryItems = [
   {
-    title: 'Interior Door Panel',
-    description: 'Professional interior restoration and deep cleaning',
-    beforeImage: '/images/interior-door-before.jpg',
-    afterImage: '/images/interior-door-after.jpg'
+    id: 1,
+    title: 'Left Side Door',
+    beforeImage: '/gallery/left-side-door-before.JPG',
+    afterImage: '/gallery/left-side-door-after.JPG',
+    description: 'Complete door panel restoration and detailing'
   },
   {
-    title: 'Interior Side Panel',
-    description: 'Complete interior detailing and surface restoration',
-    beforeImage: '/images/interior-side-before.jpg',
-    afterImage: '/images/interior-side-after.jpg'
+    id: 2,
+    title: 'Interior Right Side',
+    beforeImage: '/gallery/inside-from-right-before-2.JPG',
+    afterImage: '/gallery/from-right-side-after.JPG',
+    description: 'Full interior restoration and cleaning'
   },
   {
-    title: 'Surface Treatment',
-    description: 'Professional surface cleaning and protection',
-    beforeImage: '/images/surface-before.jpg',
-    afterImage: '/images/surface-after.jpg'
+    id: 3,
+    title: 'Complete Transformation',
+    beforeImage: '/gallery/before.jpeg',
+    afterImage: '/gallery/after.jpeg',
+    description: 'Full vehicle detailing and restoration'
   }
 ]
 
 export default function Gallery() {
   return (
-    <section className="section bg-black">
-      <div className="container">
-        <div className="text-center mb-16">
-          <h2 className="mb-4">Featured Transformations</h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+    <section className="section relative overflow-hidden" id="gallery">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--background-start)] via-[var(--background-mid)] to-[var(--background-end)]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/5 via-transparent to-transparent opacity-30" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--primary)_0%,_transparent_60%)] opacity-[0.03]" />
+      
+      <div className="container relative">
+        <div className="text-center mb-12">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl lg:text-5xl font-bold gradient-text mb-4"
+          >
+            Featured Transformations
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-lg text-[var(--text-muted)] max-w-2xl mx-auto"
+          >
             Witness the remarkable results of our professional detailing services
-          </p>
+          </motion.p>
+          <div className="section-divider" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {transformations.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-black/50 rounded-lg overflow-hidden"
-            >
-              <div className="relative h-64 group cursor-pointer">
-                <Image
-                  src={item.beforeImage}
-                  alt={`Before ${item.title}`}
-                  fill
-                  className="object-cover transition-opacity duration-300 group-hover:opacity-0"
-                />
-                <Image
-                  src={item.afterImage}
-                  alt={`After ${item.title}`}
-                  fill
-                  className="object-cover absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t from-black/80 to-transparent">
-                  <h3 className="text-xl font-bold mb-1">{item.title}</h3>
-                  <p className="text-sm text-gray-300">{item.description}</p>
-                </div>
-              </div>
-            </motion.div>
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {galleryItems.map((item, index) => (
+            <GalleryItem
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              beforeImage={item.beforeImage}
+              afterImage={item.afterImage}
+              delay={index}
+            />
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <a href="#" className="btn btn-primary">
-            View Full Gallery →
-          </a>
-        </div>
+        {/* View More Button */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mt-12"
+        >
+          <Link
+            href="/gallery"
+            className="btn btn-primary"
+          >
+            View Full Gallery
+          </Link>
+        </motion.div>
       </div>
     </section>
   )
