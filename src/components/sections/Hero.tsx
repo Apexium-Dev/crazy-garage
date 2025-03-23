@@ -4,6 +4,16 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 export default function Hero() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -16,7 +26,8 @@ export default function Hero() {
           priority
           quality={100}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-transparent" />
+        <div className="absolute inset-0 bg-[var(--background-rgb)]/30 backdrop-blur-[2px]" />
       </div>
       
       <div className="container relative z-10">
@@ -25,36 +36,62 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-6"
+            className="space-y-8"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="gradient-text leading-tight"
+            >
               Transform your car's look with our professional detailing services
-            </h1>
+            </motion.h1>
 
-            <p className="text-lg text-gray-300 max-w-2xl">
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-lg md:text-xl text-[var(--text-muted)] max-w-2xl"
+            >
               Experience premium car detailing and headlight restoration services that
               will transform your vehicle's appearance
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="px-8 py-3 bg-white text-black font-medium rounded hover:bg-gray-100 transition-colors">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 pt-4"
+            >
+              <button 
+                className="btn btn-primary"
+                onClick={() => scrollToSection('contact')}
+              >
                 GET YOUR CAR POLISHED
               </button>
-              <button className="px-8 py-3 bg-transparent border-2 border-white text-white font-medium rounded hover:bg-white/10 transition-colors">
+              <button 
+                className="btn btn-secondary"
+                onClick={() => scrollToSection('gallery')}
+              >
                 VIEW OUR WORK
               </button>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
 
       {/* WhatsApp Icon */}
-      <div className="absolute bottom-8 right-8 z-20">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 1 }}
+        className="fixed bottom-8 right-8 z-20"
+      >
         <a
           href="https://wa.me/38976276666"
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:bg-[#20BD5C] transition-colors"
+          className="block w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:bg-[#20BD5C] transition-all duration-300 hover:scale-110"
         >
           <Image
             src="/images/whatsapp.svg"
@@ -64,7 +101,34 @@ export default function Hero() {
             className="w-8 h-8"
           />
         </a>
-      </div>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          duration: 1,
+          delay: 1.2,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+      >
+        <div className="w-8 h-12 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+          <motion.div
+            animate={{ 
+              y: [0, 12, 0],
+            }}
+            transition={{ 
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "loop"
+            }}
+            className="w-1 h-3 bg-white/60 rounded-full"
+          />
+        </div>
+      </motion.div>
     </section>
   )
 } 
