@@ -5,6 +5,7 @@ const path = require('path');
 const GALLERY_DIR = 'public/gallery';
 const DATA_DIR = 'public/data';
 const DATA_FILE = path.join(DATA_DIR, 'gallery.json');
+const BASE_PATH = '/crazy-garage';
 
 // Ensure data directory exists
 !fs.existsSync(DATA_DIR) && fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -23,7 +24,13 @@ if (fs.existsSync(DATA_FILE)) {
 const files = fs.readdirSync(GALLERY_DIR);
 const pairs = new Map();
 
-// Group files by timestamp
+// Helper function to get timestamp from file stats
+function getTimestamp(filePath) {
+  const stats = fs.statSync(filePath);
+  return stats.mtimeMs;
+}
+
+// Group files by pairs
 files.forEach(file => {
   const match = file.match(/^(before|after)_(\d+)\.(webp|jpg|jpeg|png)$/i);
   if (match) {
@@ -31,7 +38,7 @@ files.forEach(file => {
     if (!pairs.has(timestamp)) {
       pairs.set(timestamp, {});
     }
-    pairs.get(timestamp)[type.toLowerCase()] = `/gallery/${file}`;
+    pairs.get(timestamp)[type.toLowerCase()] = `${BASE_PATH}/gallery/${file}`;
   }
 });
 
