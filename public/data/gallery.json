@@ -1,5 +1,20 @@
 [
   {
+    "timestamp": 1742875768381,
+    "title": {
+      "en": "Car Detailing",
+      "mk": "Детаилирање на автомобил",
+      "sq": "Detajimi i makinës"
+    },
+    "description": {
+      "en": "Professional detailing transformation",
+      "mk": "Професионална трансформација со детаилирање",
+      "sq": "Transformim profesional i detajuar"
+    },
+    "beforeImage": "/crazy-garage/public/gallery/before_1742875768381.webp",
+    "afterImage": "/crazy-garage/public/gallery/after_1742875768381.webp"
+  },
+  {
     "timestamp": 1742874425772,
     "title": {
       "en": "Car Detailing",
