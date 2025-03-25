@@ -30,6 +30,12 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
   const params = useParams();
   const lang = ((params.lng as string) || 'en') as 'en' | 'mk' | 'sq';
 
+  // Ensure image paths are correct
+  const getImagePath = (path: string) => {
+    if (!path) return '';
+    return path.startsWith('/') ? path : `/${path}`;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -46,7 +52,7 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
         <div className={`absolute inset-0 transition-opacity duration-300 ${showAfter ? 'opacity-0' : 'opacity-100'}`}>
           {beforeImage && (
             <Image
-              src={beforeImage}
+              src={getImagePath(beforeImage)}
               alt={`Before ${title[lang]}`}
               fill
               className="object-cover"
@@ -59,7 +65,7 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
         <div className={`absolute inset-0 transition-opacity duration-300 ${showAfter ? 'opacity-100' : 'opacity-0'}`}>
           {afterImage && (
             <Image
-              src={afterImage}
+              src={getImagePath(afterImage)}
               alt={`After ${title[lang]}`}
               fill
               className="object-cover"

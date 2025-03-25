@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -24,15 +26,19 @@ jobs:
       - name: Update gallery data
         run: node scripts/update-gallery.js
 
-      - name: Commit changes
+      - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add public/data/gallery.json
-          git commit -m "Update gallery data" || exit 0
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }} 
+      - name: Commit and push if changed
+        run: |
+          git add public/data/gallery.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          git pull --rebase origin main
+          git commit -m "Update gallery data"
+          git push origin main 

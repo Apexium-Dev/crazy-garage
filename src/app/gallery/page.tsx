@@ -29,7 +29,7 @@ export default function GalleryPage() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch('/crazy-garage/data/gallery.json');
+        const response = await fetch('/data/gallery.json');
         if (!response.ok) {
           throw new Error('Failed to load gallery data');
         }
@@ -43,7 +43,6 @@ export default function GalleryPage() {
         setError(null);
       } catch (error) {
         console.error('Error loading gallery:', error);
-        // Don't show error if it's just empty data
         if (error instanceof Error && error.message === 'Failed to load gallery data') {
           setGalleryItems([]);
         } else {
