@@ -5,7 +5,7 @@ const path = require('path');
 const GALLERY_DIR = 'public/gallery';
 const DATA_DIR = 'public/data';
 const DATA_FILE = path.join(DATA_DIR, 'gallery.json');
-const BASE_PATH = '/crazy-garage';
+const BASE_PATH = '/crazy-garage/public'; // Update base path to include /public/
 
 // Ensure data directory exists
 !fs.existsSync(DATA_DIR) && fs.mkdirSync(DATA_DIR, { recursive: true });
