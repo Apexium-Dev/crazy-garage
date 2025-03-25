@@ -1,0 +1,32 @@
+[
+  {
+    "id": "a69c16ce-499a-4ca5-801e-96beecd8cd94",
+    "title": {
+      "en": "Car Detailing",
+      "mk": "Детаилирање на автомобил",
+      "sq": "Detajimi i makinës"
+    },
+    "description": {
+      "en": "After professional detailing",
+      "mk": "После професионално детаилирање",
+      "sq": "Pas detajimit profesional"
+    },
+    "afterImage": "/gallery/after_1742793345372.webp",
+    "timestamp": 1742793345372
+  },
+  {
+    "id": "9884c8d3-b1f0-41d9-b244-638fb4646b2d",
+    "title": {
+      "en": "Car Detailing",
+      "mk": "Детаилирање на автомобил",
+      "sq": "Detajimi i makinës"
+    },
+    "description": {
+      "en": "Before professional detailing",
+      "mk": "Пред професионално детаилирање",
+      "sq": "Para detajimit profesional"
+    },
+    "beforeImage": "/gallery/before_1742790118403.webp",
+    "timestamp": 1742790118403
+  }
+]
