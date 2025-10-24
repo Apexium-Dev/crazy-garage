@@ -6,22 +6,32 @@ on:
 
 jobs:
   add-gallery-item:
-    if: contains(join(github.event.issue.labels.*.name, ','), 'gallery')
     runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: write
 
     steps:
+      - name: Check if issue has gallery label
+        id: check-label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = context.payload.issue.labels.map(l => l.name);
+            core.setOutput('has_gallery', labels.includes('gallery'));
+
       - name: Checkout repository
+        if: steps.check-label.outputs.has_gallery == 'true'
         uses: actions/checkout@v4
 
       - name: Setup Node.js
+        if: steps.check-label.outputs.has_gallery == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Extract image URLs from issue
+        if: steps.check-label.outputs.has_gallery == 'true'
         id: extract-images
         uses: actions/github-script@v7
         with:
@@ -47,6 +57,7 @@ jobs:
             core.setOutput('afterImage', afterImg);
 
       - name: Parse issue body
+        if: steps.check-label.outputs.has_gallery == 'true'
         id: parse-issue
         run: |
           body="${{ github.event.issue.body }}"
@@ -77,6 +88,7 @@ jobs:
           echo "Title SQ: $title_sq"
 
       - name: Create new gallery item JSON
+        if: steps.check-label.outputs.has_gallery == 'true'
         run: |
           timestamp=$(date +%s)000
 
@@ -101,6 +113,7 @@ jobs:
           cat new-item.json
 
       - name: Update gallery.json
+        if: steps.check-label.outputs.has_gallery == 'true'
         run: |
           # Install jq for JSON manipulation
           sudo apt-get update && sudo apt-get install -y jq
@@ -123,6 +136,7 @@ jobs:
           cat public/data/gallery.json
 
       - name: Commit and push
+        if: steps.check-label.outputs.has_gallery == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -131,6 +145,7 @@ jobs:
           git push
 
       - name: Comment and close issue
+        if: steps.check-label.outputs.has_gallery == 'true'
         uses: actions/github-script@v7
         with:
           script: |
