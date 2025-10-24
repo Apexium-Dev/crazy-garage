@@ -6,7 +6,7 @@ on:
 
 jobs:
   add-gallery-item:
-    if: contains(github.event.issue.labels.*.name, 'gallery')
+    if: contains(github.event.issue.title, '[Gallery]')
     runs-on: ubuntu-latest
     permissions:
       contents: write
