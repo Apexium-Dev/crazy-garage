@@ -43,7 +43,8 @@ ${formData.descriptionSq}
 Please drag and drop your before/after images here!`);
 
     const labels = encodeURIComponent("gallery");
-    const issueUrl = `https://github.com/${GITHUB_REPO}/issues/new?template=gallery-item.yml&labels=${labels}&body=${issueBody}`;
+    const title = encodeURIComponent("[Gallery] ");
+    const issueUrl = `https://github.com/${GITHUB_REPO}/issues/new?template=gallery-item.yml&labels=${labels}&title=${title}&body=${issueBody}`;
 
     window.open(issueUrl, "_blank");
   };

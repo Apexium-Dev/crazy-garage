@@ -132,9 +132,17 @@ Gallery items се зачувани во `public/data/gallery.json`:
 
 ### GitHub Action не работи?
 
-- Провери дали Issues имаат правилно label (`gallery`)
-- Провери дали GitHub Actions има write permissions
-- Погледни GitHub Actions logs за детали
+**Провери:**
+
+1. ✅ Дали Issue-то има `gallery` label
+2. ✅ Дали GitHub Actions има write permissions во Settings → Actions → General
+3. ✅ Погледни GitHub Actions logs за детали
+
+**Доколку Actions се skipped:**
+
+- Workflow се trigger-ува само ако Issue-то има `gallery` label
+- Admin форма автоматски го додава label-от
+- Ако рачно креираш Issue, немој да заборавиш да го додадеш `gallery` label-от
 
 ### Сликите не се појавуваат?
 

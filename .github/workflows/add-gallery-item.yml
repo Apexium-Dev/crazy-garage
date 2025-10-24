@@ -6,21 +6,21 @@ on:
 
 jobs:
   add-gallery-item:
-    if: contains(github.event.issue.title, '[Gallery]')
+    if: contains(join(github.event.issue.labels.*.name, ','), 'gallery')
     runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: write
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      
+          node-version: "20"
+
       - name: Extract image URLs from issue
         id: extract-images
         uses: actions/github-script@v7
@@ -31,55 +31,55 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
             });
-            
+
             // Extract image URLs - GitHub hosts them at user-images.githubusercontent.com
             const imageRegex = /https:\/\/user-images\.githubusercontent\.com\/[^\s)]+/g;
             const images = issue.data.body.match(imageRegex) || [];
-            
+
             const beforeImg = images[0] || '';
             const afterImg = images[1] || images[0] || '';
-            
+
             console.log('Found images:', images.length);
             console.log('Before:', beforeImg);
             console.log('After:', afterImg);
-            
+
             core.setOutput('beforeImage', beforeImg);
             core.setOutput('afterImage', afterImg);
-      
+
       - name: Parse issue body
         id: parse-issue
         run: |
           body="${{ github.event.issue.body }}"
-          
+
           # Write body to file for parsing
           echo "$body" > issue-body.txt
-          
+
           # Extract titles (looking for the section after "### Title (...)")
           title_en=$(awk '/### Title \(English\)/,/^###|^$/ {if (/^###/) next; if (NF > 0 && $0 !~ /^###/) print}' issue-body.txt | head -1 | xargs)
           title_mk=$(awk '/### Title \(Macedonian/,/^###|^$/ {if (/^###/) next; if (NF > 0 && $0 !~ /^###/) print}' issue-body.txt | head -1 | xargs)
           title_sq=$(awk '/### Title \(Albanian/,/^###|^$/ {if (/^###/) next; if (NF > 0 && $0 !~ /^###/) print}' issue-body.txt | head -1 | xargs)
-          
+
           # Extract descriptions (get all lines after header until next ###)
           desc_en=$(awk '/### Description \(English\)/,/^###/ {if (/^###/ && NR>1) exit; if (NF > 0 && $0 !~ /^###/) print}' issue-body.txt | xargs)
           desc_mk=$(awk '/### Description \(Macedonian/,/^###/ {if (/^###/ && NR>1) exit; if (NF > 0 && $0 !~ /^###/) print}' issue-body.txt | xargs)
           desc_sq=$(awk '/### Description \(Albanian/,/^###/ {if (/^###/ && NR>1) exit; if (NF > 0 && $0 !~ /^###/) print}' issue-body.txt | xargs)
-          
+
           echo "title_en=$title_en" >> $GITHUB_OUTPUT
           echo "title_mk=$title_mk" >> $GITHUB_OUTPUT
           echo "title_sq=$title_sq" >> $GITHUB_OUTPUT
           echo "desc_en=$desc_en" >> $GITHUB_OUTPUT
           echo "desc_mk=$desc_mk" >> $GITHUB_OUTPUT
           echo "desc_sq=$desc_sq" >> $GITHUB_OUTPUT
-          
+
           echo "Parsed data:"
           echo "Title EN: $title_en"
           echo "Title MK: $title_mk"
           echo "Title SQ: $title_sq"
-      
+
       - name: Create new gallery item JSON
         run: |
           timestamp=$(date +%s)000
-          
+
           cat > new-item.json << 'EOF'
           {
             "timestamp": $timestamp,
@@ -97,31 +97,31 @@ jobs:
             "afterImage": "${{ steps.extract-images.outputs.afterImage }}"
           }
           EOF
-          
+
           cat new-item.json
-      
+
       - name: Update gallery.json
         run: |
           # Install jq for JSON manipulation
           sudo apt-get update && sudo apt-get install -y jq
-          
+
           # Backup original
           cp public/data/gallery.json gallery-backup.json
-          
+
           # Read current gallery
           current=$(cat public/data/gallery.json)
-          
+
           # Add new item to array
           new_item=$(cat new-item.json)
           updated=$(echo "$current" | jq --argjson new "$new_item" '. + [$new]')
-          
+
           # Write updated gallery
           echo "$updated" > public/data/gallery.json
-          
+
           # Verify it worked
           echo "Updated gallery:"
           cat public/data/gallery.json
-      
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
@@ -129,7 +129,7 @@ jobs:
           git add public/data/gallery.json
           git commit -m "Add gallery item from issue #${{ github.event.issue.number }}" || exit 0
           git push
-      
+
       - name: Comment and close issue
         uses: actions/github-script@v7
         with:
@@ -140,11 +140,10 @@ jobs:
               repo: context.repo.repo,
               body: '✅ Gallery item added successfully! The changes will be live on the site shortly.'
             });
-            
+
             await github.rest.issues.update({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'closed'
             });
-
