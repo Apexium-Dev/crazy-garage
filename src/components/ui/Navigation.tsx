@@ -62,7 +62,7 @@ export default function Navigation() {
           <Link href="/" className="relative w-14 h-14 rounded-full overflow-hidden bg-white/5 backdrop-blur-sm">
             <div className="relative w-full h-full">
               <Image
-                src="images/logo.jpg"
+                src="/images/logo.jpg"
                 alt="Crazy Garage"
                 fill
                 sizes="56px"

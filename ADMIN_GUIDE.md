@@ -20,12 +20,14 @@
 ### 1. GitHub Actions Permissions
 
 Иди во **Settings → Actions → General** и осигурај се дека:
+
 - ✅ Workflow permissions се "Read and write permissions"
 - ✅ Allow all actions and reusable workflows
 
 ### 2. Update Repo Name (Optional)
 
 Отвори `src/app/admin/page.tsx` и ако е потребно промени:
+
 ```javascript
 const GITHUB_REPO = "Apexium-Dev/crazy-garage";
 ```
@@ -51,6 +53,7 @@ const GITHUB_REPO = "Apexium-Dev/crazy-garage";
 6. **Готово!** Сликата ќе се појави на сајтот следниот deploy
 
 ### Сликите мора да бидат:
+
 - ✅ PNG, JPG, JPEG, или WebP
 - ✅ Одделни "before" и "after" слики
 - ✅ GitHub автоматски ги хостира бесплатно!
@@ -58,10 +61,12 @@ const GITHUB_REPO = "Apexium-Dev/crazy-garage";
 ## 🔧 How It Works Internally
 
 ### GitHub Issue Template
+
 - `.github/ISSUE_TEMPLATE/gallery-item.yml` - дефинира формата
 - Label: `gallery` (required)
 
 ### GitHub Action Workflow
+
 - `.github/workflows/add-gallery-item.yml` - слуша за нови Issues
 - Парсира податоци од Issue body
 - Екстрахира image URLs од GitHub attachments
@@ -69,6 +74,7 @@ const GITHUB_REPO = "Apexium-Dev/crazy-garage";
 - Commit-ува промени
 
 ### Admin Form
+
 - `src/app/admin/page.tsx` - форма на сајтот
 - Редиректира на GitHub Issue creation
 - Pre-fills сите податоци
@@ -81,19 +87,22 @@ const GITHUB_REPO = "Apexium-Dev/crazy-garage";
 ✅ **GitHub хостира слики** - бесплатно и автоматично  
 ✅ **Автоматско version control** - се во repo  
 ✅ **Лесно враќање** - можеш да revert commit  
-✅ **100% бесплатно** - GitHub Pages + Issues + Actions  
+✅ **100% бесплатно** - GitHub Pages + Issues + Actions
 
 ## 🛡️ Security
 
 ### Option 1: Public Repo (Current)
+
 - Сајтот е јавен, но само ти имаш permissions за GitHub Issues
 - Само organization members можат да креираат Issues
 
 ### Option 2: Private Repo
+
 - Repo е приватно
 - Само тие со пристап можат да додаваат gallery items
 
 ### Option 3: Password Protection
+
 - Додај password поле во admin form
 - Провери password пред редирект на GitHub
 
@@ -122,16 +131,19 @@ Gallery items се зачувани во `public/data/gallery.json`:
 ## 🐛 Troubleshooting
 
 ### GitHub Action не работи?
+
 - Провери дали Issues имаат правилно label (`gallery`)
 - Провери дали GitHub Actions има write permissions
 - Погледни GitHub Actions logs за детали
 
 ### Сликите не се појавуваат?
+
 - GitHub треба малку време да ги upload-не сликите
 - Провери дали URLs се правилни во `gallery.json`
 - Провери Network tab во browser за 404 errors
 
 ### basePath проблеми?
+
 - Локално: нема basePath (localhost:3000)
 - Production: има basePath (/crazy-garage/)
 - За custom domain, отстрани basePath од `next.config.ts`
@@ -139,9 +151,9 @@ Gallery items се зачувани во `public/data/gallery.json`:
 ## 🎓 Next Steps
 
 Ако сакаш да го направиш repo-то со custom domain:
+
 1. Купи домен (нпр. crazygarage.com)
 2. Во GitHub: Settings → Pages → Custom domain
 3. Ажурирај DNS records
 4. Отстрани basePath од `next.config.ts`
 5. Сајтот ќе биде на твојот домен!
-
