@@ -1,0 +1,75 @@
+name: ✨ Add Gallery Item
+description: Submit a new before/after transformation
+title: "[Gallery] "
+labels: ["gallery"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📸 Add Gallery Item
+        
+        Fill out this form and **drag & drop your images below**. GitHub will automatically host them!
+        
+        **Instructions:**
+        1. Drag your "before" and "after" images into the text area below ⬇️
+        2. Fill in all the information
+        3. Click "Submit new issue"
+        4. Your item will be automatically added to the gallery!
+
+  - type: textarea
+    id: images
+    attributes:
+      label: 📷 Drag & Drop Images Here
+      description: Drag your before/after images here (GitHub will host them automatically)
+      placeholder: Drag and drop your images here or click to attach...
+    validations:
+      required: true
+
+  - type: input
+    id: title-en
+    attributes:
+      label: Title (English)
+      placeholder: e.g., Car Detailing Service
+    validations:
+      required: true
+
+  - type: input
+    id: title-mk
+    attributes:
+      label: Title (Macedonian / Македонски)
+      placeholder: нпр., Детаилирање на автомобил
+    validations:
+      required: true
+
+  - type: input
+    id: title-sq
+    attributes:
+      label: Title (Albanian / Shqip)
+      placeholder: p.sh., Detajimi i makinës
+    validations:
+      required: true
+
+  - type: textarea
+    id: description-en
+    attributes:
+      label: Description (English)
+      placeholder: Professional detailing transformation...
+    validations:
+      required: true
+
+  - type: textarea
+    id: description-mk
+    attributes:
+      label: Description (Macedonian / Македонски)
+      placeholder: Професионална трансформација со детаилирање...
+    validations:
+      required: true
+
+  - type: textarea
+    id: description-sq
+    attributes:
+      label: Description (Albanian / Shqip)
+      placeholder: Transformim profesional i detajuar...
+    validations:
+      required: true
+
